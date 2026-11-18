@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, Phone, MapPin, CheckCircle, Github, Linkedin, Copy, Check } from 'lucide-react';
+import { Send, Mail, Phone, MapPin, CheckCircle, Copy, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { sound } from '../utils/sound';
 
@@ -22,8 +22,8 @@ export default function Contact() {
 
     try {
       confetti({
-        particleCount: 80,
-        spread: 60,
+        particleCount: 70,
+        spread: 55,
         origin: { y: 0.7 },
         colors: ['#ef4444', '#dc2626', '#f87171', '#ffffff']
       });
@@ -50,17 +50,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="contact" className="relative py-14 sm:py-24 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-red-600/10 rounded-full blur-[170px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[700px] h-[320px] sm:h-[500px] bg-red-600/10 rounded-full blur-[110px] sm:blur-[170px] pointer-events-none" />
 
       {/* Header matching Frame 017 & 019 */}
-      <div className="text-center max-w-3xl mx-auto mb-14 relative z-10">
+      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 relative z-10 px-2">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-xs font-mono font-bold tracking-[0.25em] text-red-500 uppercase mb-2"
+          className="text-[10px] sm:text-xs font-mono font-bold tracking-[0.25em] text-red-500 uppercase mb-2"
         >
           START A CONVERSATION
         </motion.p>
@@ -69,12 +69,12 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-black font-display tracking-tight text-white uppercase inline-block relative"
+          className="text-3xl sm:text-5xl md:text-6xl font-black font-display tracking-tight text-white uppercase inline-block relative"
         >
           CONTACT<span className="text-red-500">.</span>
-          <span className="block w-20 h-1 bg-gradient-to-r from-red-600 to-rose-400 mx-auto mt-3 rounded-full shadow-neon-red-sm" />
+          <span className="block w-16 sm:w-20 h-1 bg-gradient-to-r from-red-600 to-rose-400 mx-auto mt-2 sm:mt-3 rounded-full shadow-neon-red-sm" />
         </motion.h2>
-        <p className="text-neutral-400 text-sm sm:text-base mt-4 max-w-xl mx-auto">
+        <p className="text-neutral-400 text-xs sm:text-base mt-3 sm:mt-4 max-w-xl mx-auto">
           Looking for a Full Stack Developer, DevOps Engineer, or technical collaborator in Paris or remote? Let's build something exceptional.
         </p>
       </div>
@@ -82,37 +82,39 @@ export default function Contact() {
       {/* Frame 019 Contact Card Replica */}
       <div className="max-w-3xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="rounded-3xl cyber-glass p-7 sm:p-12 border border-red-500/30 shadow-2xl relative overflow-hidden"
+          transition={{ duration: 0.5 }}
+          className="rounded-2xl sm:rounded-3xl cyber-glass p-5 sm:p-12 border border-red-500/30 shadow-2xl relative overflow-hidden"
         >
           {/* Top direct contact pills */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-8 mb-8 border-b border-white/[0.08]">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-6 sm:pb-8 mb-6 sm:mb-8 border-b border-white/[0.08]">
             <button
               onClick={copyEmail}
               onMouseEnter={() => sound.playHover()}
-              className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] hover:border-red-500/50 text-xs sm:text-sm font-mono text-neutral-300 hover:text-white transition-all group"
+              className="flex items-center justify-between sm:justify-start gap-2.5 px-3.5 py-2 rounded-xl sm:rounded-full bg-white/[0.03] border border-white/[0.08] active:border-red-500/50 text-xs sm:text-sm font-mono text-neutral-300 hover:text-white transition-all group"
             >
-              <Mail className="w-4 h-4 text-red-500" />
-              <span>satyareddy0608@gmail.com</span>
+              <div className="flex items-center gap-2 truncate">
+                <Mail className="w-4 h-4 text-red-500 shrink-0" />
+                <span className="truncate">satyareddy0608@gmail.com</span>
+              </div>
               {copied ? (
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
               ) : (
-                <Copy className="w-3.5 h-3.5 text-neutral-500 group-hover:text-red-400" />
+                <Copy className="w-3.5 h-3.5 text-neutral-500 group-hover:text-red-400 shrink-0" />
               )}
             </button>
 
-            <div className="flex items-center gap-3 text-xs font-mono text-neutral-400">
+            <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 text-[11px] sm:text-xs font-mono text-neutral-400 px-1">
               <span className="flex items-center gap-1.5 text-neutral-300">
-                <Phone className="w-3.5 h-3.5 text-red-500" />
+                <Phone className="w-3.5 h-3.5 text-red-500 shrink-0" />
                 <span>+33 759054637</span>
               </span>
               <span className="hidden sm:inline text-neutral-600">•</span>
               <span className="flex items-center gap-1.5 text-neutral-300">
-                <MapPin className="w-3.5 h-3.5 text-red-500" />
-                <span>Paris, France</span>
+                <MapPin className="w-3.5 h-3.5 text-red-500 shrink-0" />
+                <span>Ivry-sur-Seine, France</span>
               </span>
             </div>
           </div>
@@ -122,30 +124,30 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-12"
+              className="text-center py-8 sm:py-12"
             >
-              <div className="w-16 h-16 rounded-full bg-red-500/10 border-2 border-red-500 mx-auto flex items-center justify-center text-red-500 mb-4 shadow-neon-red-sm">
-                <CheckCircle className="w-8 h-8" />
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-red-500/10 border-2 border-red-500 mx-auto flex items-center justify-center text-red-500 mb-4 shadow-neon-red-sm">
+                <CheckCircle className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-2xl font-bold font-display text-white mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold font-display text-white mb-2">
                 TRANSMISSION RECEIVED
               </h3>
-              <p className="text-neutral-400 text-sm max-w-md mx-auto mb-6">
+              <p className="text-neutral-400 text-xs sm:text-sm max-w-md mx-auto mb-6">
                 Thank you, {formData.name}. Opening your email client to dispatch the message directly to <span className="text-red-400">satyareddy0608@gmail.com</span>.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="px-6 py-2 rounded-full text-xs font-mono font-bold btn-cyber-secondary"
+                className="px-6 py-2.5 rounded-full text-xs font-mono font-bold btn-cyber-secondary"
               >
                 SEND ANOTHER MESSAGE
               </button>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {/* YOUR NAME */}
                 <div>
-                  <label className="block text-xs font-mono font-bold tracking-wider text-neutral-300 uppercase mb-2">
+                  <label className="block text-[11px] sm:text-xs font-mono font-bold tracking-wider text-neutral-300 uppercase mb-1.5 sm:mb-2">
                     YOUR NAME
                   </label>
                   <input
@@ -154,13 +156,13 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your Name"
-                    className="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/[0.08] text-white text-sm placeholder-neutral-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-sans"
+                    className="w-full px-3.5 py-3 sm:px-4 sm:py-3.5 rounded-xl bg-black/50 border border-white/[0.08] text-white text-base sm:text-sm placeholder-neutral-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-sans"
                   />
                 </div>
 
                 {/* YOUR EMAIL */}
                 <div>
-                  <label className="block text-xs font-mono font-bold tracking-wider text-neutral-300 uppercase mb-2">
+                  <label className="block text-[11px] sm:text-xs font-mono font-bold tracking-wider text-neutral-300 uppercase mb-1.5 sm:mb-2">
                     YOUR EMAIL
                   </label>
                   <input
@@ -169,23 +171,23 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    className="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/[0.08] text-white text-sm placeholder-neutral-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-sans"
+                    className="w-full px-3.5 py-3 sm:px-4 sm:py-3.5 rounded-xl bg-black/50 border border-white/[0.08] text-white text-base sm:text-sm placeholder-neutral-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-sans"
                   />
                 </div>
               </div>
 
               {/* MESSAGE & PROJECT SCOPE */}
               <div>
-                <label className="block text-xs font-mono font-bold tracking-wider text-neutral-300 uppercase mb-2">
+                <label className="block text-[11px] sm:text-xs font-mono font-bold tracking-wider text-neutral-300 uppercase mb-1.5 sm:mb-2">
                   MESSAGE & PROJECT SCOPE
                 </label>
                 <textarea
-                  rows={5}
+                  rows={4}
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell me about your idea, timeline and what you need built..."
-                  className="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/[0.08] text-white text-sm placeholder-neutral-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-sans resize-none"
+                  className="w-full px-3.5 py-3 sm:px-4 sm:py-3.5 rounded-xl bg-black/50 border border-white/[0.08] text-white text-base sm:text-sm placeholder-neutral-600 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-sans resize-none"
                 />
               </div>
 
@@ -194,7 +196,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   onMouseEnter={() => sound.playHover()}
-                  className="px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider btn-cyber-primary inline-flex items-center gap-2 shadow-neon-red"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider btn-cyber-primary inline-flex items-center justify-center gap-2 shadow-neon-red"
                 >
                   <span>Send Message</span>
                   <Send className="w-4 h-4" />

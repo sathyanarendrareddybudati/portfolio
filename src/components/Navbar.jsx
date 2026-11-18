@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, FileText, Send } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, FileText, Send, ChevronRight } from 'lucide-react';
 import { sound } from '../utils/sound';
 
-export default function Navbar({ activeSection }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent background body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { name: 'PROJECTS', href: '#projects' },
@@ -32,14 +44,14 @@ export default function Navbar({ activeSection }) {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'py-3 bg-[#07070a]/90 backdrop-blur-md border-b border-red-500/10 shadow-lg' : 'py-5'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? 'py-2.5 sm:py-3 bg-[#07070a]/92 backdrop-blur-xl border-b border-red-500/15 shadow-xl' : 'py-3.5 sm:py-5'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Brand Logo matching Reel */}
         <a 
           href="#home" 
           onClick={() => sound.playClick()}
-          className="group flex items-center gap-1.5 focus:outline-none"
+          className="group flex items-center gap-2 focus:outline-none py-1"
         >
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-red-950 border border-red-500/50 flex items-center justify-center font-bold font-mono text-white text-base shadow-neon-red-sm group-hover:scale-105 transition-transform">
             S
@@ -65,13 +77,13 @@ export default function Navbar({ activeSection }) {
           ))}
         </nav>
 
-        {/* Right CTA Actions */}
+        {/* Right Desktop CTA Actions */}
         <div className="hidden sm:flex items-center gap-3">
           {/* Sound Toggle */}
           <button
             onClick={toggleSound}
             aria-label="Toggle Sound"
-            className="p-2 rounded-full text-neutral-400 hover:text-red-400 hover:bg-white/[0.05] border border-white/[0.05] transition-colors"
+            className="p-2.5 rounded-full text-neutral-400 hover:text-red-400 hover:bg-white/[0.05] border border-white/[0.05] transition-colors"
             title={soundOn ? "Sound Effects ON" : "Sound Effects MUTED"}
           >
             {soundOn ? <Volume2 className="w-4 h-4 text-red-400" /> : <VolumeX className="w-4 h-4" />}
@@ -94,73 +106,101 @@ export default function Navbar({ activeSection }) {
             href="#contact"
             onMouseEnter={() => sound.playHover()}
             onClick={() => sound.playClick()}
-            className="px-4 py-1.5 text-xs font-bold tracking-wider rounded-full btn-cyber-primary flex items-center gap-1.5 shadow-neon-red-sm"
+            className="px-4 py-2 text-xs font-bold tracking-wider rounded-full btn-cyber-primary flex items-center gap-1.5 shadow-neon-red-sm"
           >
             <span>LET'S TALK</span>
             <Send className="w-3 h-3" />
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Control Buttons */}
         <div className="flex sm:hidden items-center gap-2">
+          {/* Sound Toggle on Mobile */}
           <button
             onClick={toggleSound}
             aria-label="Toggle Sound"
-            className="p-2 text-neutral-400 hover:text-red-400"
+            className="p-2.5 rounded-full bg-white/[0.04] border border-white/10 text-neutral-300 active:text-red-400 active:scale-95 transition-all"
           >
-            {soundOn ? <Volume2 className="w-4 h-4 text-red-400" /> : <VolumeX className="w-4 h-4" />}
+            {soundOn ? <Volume2 className="w-4 h-4 text-red-400" /> : <VolumeX className="w-4 h-4 text-neutral-500" />}
           </button>
+
+          {/* Mobile Hamburger Button */}
           <button
             onClick={() => {
               sound.playClick();
               setMobileMenuOpen(!mobileMenuOpen);
             }}
-            className="p-2 text-neutral-300 hover:text-white focus:outline-none"
+            aria-label="Toggle Navigation Menu"
+            className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-neutral-200 active:scale-95 transition-all focus:outline-none"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6 text-red-500" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-red-500" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (Fullscreen sleek cyber modal) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="sm:hidden bg-[#0a0a0f]/95 border-b border-red-500/20 backdrop-blur-2xl overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            className="sm:hidden fixed inset-x-0 top-[57px] bottom-0 bg-[#07070a]/98 backdrop-blur-2xl border-b border-red-500/20 z-50 overflow-y-auto flex flex-col justify-between p-6"
           >
-            <div className="px-6 py-6 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
+            {/* Nav list */}
+            <div className="flex flex-col gap-2 pt-2">
+              <span className="text-[10px] font-mono text-neutral-500 tracking-[0.25em] uppercase mb-2">
+                NAVIGATION
+              </span>
+              {navLinks.map((link, idx) => (
+                <motion.a
                   key={link.name}
                   href={link.href}
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.05 }}
                   onClick={() => {
                     sound.playClick();
                     setMobileMenuOpen(false);
                   }}
-                  className="text-sm font-semibold tracking-wider text-neutral-300 hover:text-red-400 py-1"
+                  className="flex items-center justify-between py-3.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-sm font-bold tracking-wider text-neutral-200 active:bg-red-500/15 active:border-red-500/40 active:text-white transition-all"
                 >
-                  {link.name}
-                </a>
+                  <span className="flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-neon-red-sm" />
+                    <span>{link.name}</span>
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-neutral-500" />
+                </motion.a>
               ))}
-              <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
-                <a
-                  href="/BSatya_Resume.pdf"
-                  download="BSatya_Resume.pdf"
-                  className="flex items-center justify-center gap-2 py-2 text-xs font-semibold text-neutral-200 bg-white/5 rounded-full border border-white/10"
-                >
-                  <FileText className="w-4 h-4 text-red-400" />
-                  DOWNLOAD RESUME
-                </a>
-                <a
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-2.5 text-center text-xs font-bold tracking-wider rounded-full btn-cyber-primary shadow-neon-red-sm"
-                >
-                  LET'S TALK
-                </a>
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="pt-6 pb-4 border-t border-white/10 flex flex-col gap-3">
+              <a
+                href="/BSatya_Resume.pdf"
+                download="BSatya_Resume.pdf"
+                onClick={() => sound.playClick()}
+                className="flex items-center justify-center gap-2 py-3 px-4 text-xs font-mono font-bold text-neutral-200 bg-white/5 rounded-xl border border-white/10 active:bg-white/10 transition-all"
+              >
+                <FileText className="w-4 h-4 text-red-500" />
+                <span>DOWNLOAD RESUME (PDF)</span>
+              </a>
+
+              <a
+                href="#contact"
+                onClick={() => {
+                  sound.playClick();
+                  setMobileMenuOpen(false);
+                }}
+                className="py-3.5 px-4 text-center text-xs font-bold tracking-wider rounded-xl btn-cyber-primary shadow-neon-red flex items-center justify-center gap-2"
+              >
+                <span>LET'S TALK</span>
+                <Send className="w-3.5 h-3.5" />
+              </a>
+
+              <div className="text-center pt-2 text-[10px] font-mono text-neutral-500">
+                PARIS, FRANCE // SATYA NARENDRA
               </div>
             </div>
           </motion.div>

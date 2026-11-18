@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail, ArrowUp, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { sound } from '../utils/sound';
 
 export default function Footer() {
@@ -9,11 +9,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-white/[0.08] bg-[#050508] text-neutral-400 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+    <footer className="relative border-t border-white/[0.08] bg-[#050508] text-neutral-400 py-10 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
         
         {/* Brand Left */}
-        <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <a href="#home" className="flex items-center gap-2 group">
             <div className="w-7 h-7 rounded-lg bg-red-600/20 border border-red-500/40 flex items-center justify-center font-bold font-mono text-red-500 text-sm">
               S
@@ -22,7 +22,7 @@ export default function Footer() {
               <span className="text-red-500">S</span>ATYA<span className="text-red-500">.</span>
             </span>
           </a>
-          <p className="text-xs font-mono text-neutral-500 mt-2 text-center md:text-left">
+          <p className="text-[11px] sm:text-xs font-mono text-neutral-500 mt-2">
             Full Stack Developer & DevOps Engineer // ISEP Paris
           </p>
         </div>
@@ -33,9 +33,10 @@ export default function Footer() {
             href="https://github.com/sathyanarendrareddybudati"
             target="_blank"
             rel="noreferrer"
+            aria-label="GitHub Profile"
             onMouseEnter={() => sound.playHover()}
             onClick={() => sound.playClick()}
-            className="p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-neutral-300 hover:text-white hover:border-red-500/50 hover:bg-red-500/10 transition-all"
+            className="p-3 rounded-full bg-white/[0.03] border border-white/[0.08] text-neutral-300 hover:text-white hover:border-red-500/50 hover:bg-red-500/10 active:scale-95 transition-all"
             title="GitHub"
           >
             <Github className="w-4 h-4" />
@@ -44,18 +45,20 @@ export default function Footer() {
             href="https://www.linkedin.com/in/satyanarendra-reddy-b505aa192/"
             target="_blank"
             rel="noreferrer"
+            aria-label="LinkedIn Profile"
             onMouseEnter={() => sound.playHover()}
             onClick={() => sound.playClick()}
-            className="p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-neutral-300 hover:text-white hover:border-red-500/50 hover:bg-red-500/10 transition-all"
+            className="p-3 rounded-full bg-white/[0.03] border border-white/[0.08] text-neutral-300 hover:text-white hover:border-red-500/50 hover:bg-red-500/10 active:scale-95 transition-all"
             title="LinkedIn"
           >
             <Linkedin className="w-4 h-4" />
           </a>
           <a
             href="mailto:satyareddy0608@gmail.com"
+            aria-label="Send Email"
             onMouseEnter={() => sound.playHover()}
             onClick={() => sound.playClick()}
-            className="p-2.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-neutral-300 hover:text-white hover:border-red-500/50 hover:bg-red-500/10 transition-all"
+            className="p-3 rounded-full bg-white/[0.03] border border-white/[0.08] text-neutral-300 hover:text-white hover:border-red-500/50 hover:bg-red-500/10 active:scale-95 transition-all"
             title="Email"
           >
             <Mail className="w-4 h-4" />
@@ -63,30 +66,31 @@ export default function Footer() {
         </div>
 
         {/* Quick Links & Scroll to Top */}
-        <div className="flex items-center gap-6 text-xs font-mono">
-          <a href="#projects" className="hover:text-red-400 transition-colors">PROJECTS</a>
-          <a href="#about" className="hover:text-red-400 transition-colors">ABOUT</a>
-          <a href="#services" className="hover:text-red-400 transition-colors">SERVICES</a>
-          <a href="#contact" className="hover:text-red-400 transition-colors">CONTACT</a>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-mono">
+          <a href="#projects" className="hover:text-red-400 py-1 transition-colors">PROJECTS</a>
+          <a href="#about" className="hover:text-red-400 py-1 transition-colors">ABOUT</a>
+          <a href="#services" className="hover:text-red-400 py-1 transition-colors">SERVICES</a>
+          <a href="#contact" className="hover:text-red-400 py-1 transition-colors">CONTACT</a>
 
           <button
             onClick={scrollToTop}
+            aria-label="Scroll back to top"
             onMouseEnter={() => sound.playHover()}
-            className="p-2 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white transition-all ml-2"
+            className="p-2.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500 hover:text-white active:scale-95 transition-all"
             title="Scroll to Top"
           >
-            <ArrowUp className="w-3.5 h-3.5" />
+            <ArrowUp className="w-4 h-4" />
           </button>
         </div>
 
       </div>
 
-      <div className="max-w-7xl mx-auto mt-8 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-neutral-500 gap-3">
+      <div className="max-w-7xl mx-auto mt-6 sm:mt-8 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between text-[10px] sm:text-[11px] font-mono text-neutral-500 gap-2 text-center sm:text-left">
         <div>
           © {new Date().getFullYear()} BUDATI SATYA NARENDRA REDDY. ALL RIGHTS RESERVED.
         </div>
-        <div className="flex items-center gap-1.5">
-          <span>HOSTED WITH CLOUD EXCELLENCE IN PARIS, FRANCE</span>
+        <div>
+          PARIS, FRANCE // HIGH-PERFORMANCE WEB & DEVOPS
         </div>
       </div>
     </footer>
