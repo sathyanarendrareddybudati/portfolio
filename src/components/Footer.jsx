@@ -3,6 +3,25 @@ import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { sound } from '../utils/sound';
 
 export default function Footer() {
+  const scrollToSection = (e, href) => {
+    e.preventDefault();
+    sound.playClick();
+    if (href === '#home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const element = document.querySelector(href);
+    if (element) {
+      const headerOffset = 70;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const scrollToTop = () => {
     sound.playClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -14,7 +33,11 @@ export default function Footer() {
         
         {/* Brand Left */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
-          <a href="#home" className="flex items-center gap-2 group">
+          <a 
+            href="#home" 
+            onClick={(e) => scrollToSection(e, '#home')}
+            className="flex items-center gap-2 group"
+          >
             <div className="w-7 h-7 rounded-lg bg-red-600/20 border border-red-500/40 flex items-center justify-center font-bold font-mono text-red-500 text-sm">
               S
             </div>
@@ -67,10 +90,10 @@ export default function Footer() {
 
         {/* Quick Links & Scroll to Top */}
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs font-mono">
-          <a href="#projects" className="hover:text-red-400 py-1 transition-colors">PROJECTS</a>
-          <a href="#about" className="hover:text-red-400 py-1 transition-colors">ABOUT</a>
-          <a href="#services" className="hover:text-red-400 py-1 transition-colors">SERVICES</a>
-          <a href="#contact" className="hover:text-red-400 py-1 transition-colors">CONTACT</a>
+          <a href="#projects" onClick={(e) => scrollToSection(e, '#projects')} className="hover:text-red-400 py-1 transition-colors">PROJECTS</a>
+          <a href="#about" onClick={(e) => scrollToSection(e, '#about')} className="hover:text-red-400 py-1 transition-colors">ABOUT</a>
+          <a href="#services" onClick={(e) => scrollToSection(e, '#services')} className="hover:text-red-400 py-1 transition-colors">SERVICES</a>
+          <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="hover:text-red-400 py-1 transition-colors">CONTACT</a>
 
           <button
             onClick={scrollToTop}
